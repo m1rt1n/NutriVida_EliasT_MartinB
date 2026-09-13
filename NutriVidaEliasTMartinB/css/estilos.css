@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #2b2b2b;
+  background-color: #f8f9fa;
+}
+
+/* Solo afecta a la barra superior principal, no a los <header> de las tarjetas */
+body > header {
+  background-color: #1e5631;
+}
+
+/* Estilo para los enlaces del menú al pasar el mouse */
+nav a:hover {
+  text-decoration: underline !important;
+  opacity: 0.9;
+}
+
+/* Efecto hover suave para las tarjetas de servicios */
+.card {
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
