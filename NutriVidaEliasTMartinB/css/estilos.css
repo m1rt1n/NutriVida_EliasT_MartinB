@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -9,7 +13,7 @@ body {
   background-color: #f8f9fa;
 }
 
-/* Solo afecta a la barra superior principal, no a los <header> de las tarjetas */
+/* Solo afecta a la barra superior principal */
 body > header {
   background-color: #1e5631;
 }

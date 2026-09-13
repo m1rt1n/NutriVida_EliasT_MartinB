@@ -17,7 +17,7 @@
 <body>
 
   <!-- HEADER Y NAVEGACIÓN PRINCIPAL -->
-  <header class="py-3">
+  <header class="py-3 sticky-top shadow-sm">
     <div class="container d-flex flex-wrap justify-content-between align-items-center">
       <div>
         <h1 id="titulo-sitio" class="h3 m-0">NutriVida</h1>
@@ -31,7 +31,9 @@
         <a href="#contacto" class="text-white me-3 text-decoration-none">Contacto</a>
       </nav>
 
-      <div>
+      <div class="d-flex align-items-center gap-2">
+        <button id="btn-ver-login" class="btn btn-outline-light btn-sm">Iniciar Sesión</button>
+        <button id="btn-ver-registro" class="btn btn-outline-light btn-sm">Registrarse</button>
         <button id="btn-carrito" class="btn btn-warning btn-sm">
           🛒 Carrito (<span id="contador-productos">0</span>)
         </button>
@@ -41,7 +43,113 @@
 
   <main class="container my-4">
 
-    <!-- SECCIÓN 1: BIENVENIDA -->
+    <!-- SECCIÓN: CAJA DE CARRITO (Ocultable / Arriba) -->
+    <section id="seccion-carrito" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
+      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <h3 class="h4 fw-bold text-success m-0">Tu Carrito de Servicios</h3>
+        <button id="btn-cerrar-carrito" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
+      </header>
+
+      <ul id="lista-carrito" class="list-group mb-3">
+        <!-- Rellenado dinámicamente por JS -->
+      </ul>
+
+      <footer class="d-flex justify-content-between align-items-center pt-2">
+        <div>
+          <span class="fs-5 fw-bold">Total a Pagar: </span>
+          <data id="total-carrito" class="fs-5 fw-bold text-success" value="0">$0 CLP</data>
+        </div>
+        <button id="btn-vaciar-carrito" type="button" class="btn btn-outline-danger btn-sm">Vaciar Carrito</button>
+      </footer>
+    </section>
+
+    <!-- SECCIÓN: INICIO DE SESIÓN (Ocultable / Arriba) -->
+    <section id="seccion-login" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
+      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <h3 class="h4 fw-bold text-success m-0">Iniciar Sesión</h3>
+        <button id="btn-cerrar-login" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
+      </header>
+
+      <form id="form-login" novalidate style="max-width: 450px;">
+        <div class="mb-3">
+          <label for="login-correo" class="form-label fw-semibold">Correo Electrónico</label>
+          <input type="email" class="form-control" id="login-correo" placeholder="usuario@duoc.cl" maxlength="100">
+          <div id="error-login-correo" class="text-danger small mt-1"></div>
+        </div>
+        <div class="mb-3">
+          <label for="login-clave" class="form-label fw-semibold">Contraseña</label>
+          <input type="password" class="form-control" id="login-clave" placeholder="4 a 10 caracteres">
+          <div id="error-login-clave" class="text-danger small mt-1"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+      </form>
+    </section>
+
+    <!-- SECCIÓN: REGISTRO DE PACIENTES (Ocultable / Arriba) -->
+    <section id="seccion-registro" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
+      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <h3 class="h4 fw-bold text-success m-0">Registro de Paciente</h3>
+        <button id="btn-cerrar-registro" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
+      </header>
+
+      <form id="form-registro" novalidate style="max-width: 650px;">
+        <div class="mb-3">
+          <label for="reg-rut" class="form-label fw-semibold">RUT / RUN (Sin puntos ni guion, ej: 19011022K)</label>
+          <input type="text" class="form-control" id="reg-rut" placeholder="19011022K" maxlength="9">
+          <div id="error-reg-rut" class="text-danger small mt-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="reg-nombre" class="form-label fw-semibold">Nombre</label>
+            <input type="text" class="form-control" id="reg-nombre" maxlength="50">
+            <div id="error-reg-nombre" class="text-danger small mt-1"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="reg-apellidos" class="form-label fw-semibold">Apellidos</label>
+            <input type="text" class="form-control" id="reg-apellidos" maxlength="100">
+            <div id="error-reg-apellidos" class="text-danger small mt-1"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="reg-correo" class="form-label fw-semibold">Correo Electrónico</label>
+          <input type="email" class="form-control" id="reg-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
+          <div id="error-reg-correo" class="text-danger small mt-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="reg-region" class="form-label fw-semibold">Región</label>
+            <select class="form-select" id="reg-region">
+              <option value="">Selecciona una región</option>
+              <option value="araucania">Región de La Araucanía</option>
+              <option value="metropolitana">Región Metropolitana</option>
+              <option value="biobio">Región del Biobío</option>
+            </select>
+            <div id="error-reg-region" class="text-danger small mt-1"></div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="reg-comuna" class="form-label fw-semibold">Comuna</label>
+            <select class="form-select" id="reg-comuna" disabled>
+              <option value="">Primero selecciona una región</option>
+            </select>
+            <div id="error-reg-comuna" class="text-danger small mt-1"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="reg-direccion" class="form-label fw-semibold">Dirección</label>
+          <input type="text" class="form-control" id="reg-direccion" placeholder="Calle, número, depto" maxlength="300">
+          <div id="error-reg-direccion" class="text-danger small mt-1"></div>
+        </div>
+
+        <button type="submit" class="btn btn-success px-4">Registrar Paciente</button>
+      </form>
+    </section>
+
+    <!-- SECCIÓN 1: BIENVENIDA / HERO -->
     <section id="inicio" class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
       <h2 id="mensaje-bienvenida" class="display-6 fw-bold text-success">Asesoría Nutricional Personalizada</h2>
       <p class="fs-5 text-muted mt-3">
@@ -50,7 +158,7 @@
       <button id="boton-bienvenida" class="btn btn-outline-success btn-lg mt-2">Conocer Especialistas</button>
       
       <div id="info-extra-bienvenida" class="mt-4 d-none alert alert-success">
-        <strong>NutriVida</strong> cuenta con 4 nutricionistas especializados. Atendemos presencialmente en Temuco y ofrecemos Teleconsulta para todo Chile.
+        <strong>NutriVida</strong> cuenta con 4 nutricionistas especializados. Atendemos presencialmente en Temuco y ofrecemos Teleconsulta para todo Chile[cite: 4].
       </div>
     </section>
 
@@ -72,7 +180,7 @@
               <p class="text-muted small">Código: CN001 | Duración: 50 min</p>
             </header>
             <div class="card-body pt-2">
-              <p class="card-text">Evaluación inicial completa con anamnesis, antropometría y diseño del primer plan alimenticio.</p>
+              <p class="card-text">Evaluación inicial completa con anamnesis, antropometría y diseño del primer plan alimenticio[cite: 4].</p>
               <data class="h5 text-success fw-bold d-block" value="35000">$35.000</data>
             </div>
             <footer class="card-footer bg-white border-0 pt-0">
@@ -92,7 +200,7 @@
               <p class="text-muted small">Código: PL001 | Plan Completo</p>
             </header>
             <div class="card-body pt-2">
-              <p class="card-text">Incluye primera consulta, 1 control quincenal, plan alimenticio personalizado y seguimiento por WhatsApp.</p>
+              <p class="card-text">Incluye primera consulta, 1 control quincenal, plan alimenticio personalizado y seguimiento por WhatsApp[cite: 4].</p>
               <data class="h5 text-success fw-bold d-block" value="65000">$65.000</data>
             </div>
             <footer class="card-footer bg-white border-0 pt-0">
@@ -112,7 +220,7 @@
               <p class="text-muted small">Código: CN004 | Duración: 30 min</p>
             </header>
             <div class="card-body pt-2">
-              <p class="card-text">Consulta de seguimiento vía videollamada para pacientes fuera de Temuco o que requieren atención remota.</p>
+              <p class="card-text">Consulta de seguimiento vía videollamada para pacientes fuera de Temuco o que requieren atención remota[cite: 4].</p>
               <data class="h5 text-success fw-bold d-block" value="20000">$20.000</data>
             </div>
             <footer class="card-footer bg-white border-0 pt-0">
@@ -126,27 +234,103 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 3: MODAL / CAJA DE CARRITO (Semántica HTML5) -->
-    <section id="seccion-carrito" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
-      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-        <h3 class="h4 fw-bold text-success m-0">Tu Carrito de Servicios</h3>
-        <button id="btn-cerrar-carrito" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
+    <!-- SECCIÓN 3: NOSOTROS / EQUIPO PROFESIONAL -->
+    <section id="nosotros" class="my-5 p-4 bg-white rounded-3 shadow-sm">
+      <header class="border-bottom pb-2 mb-4">
+        <h3 class="fw-bold text-success m-0">Sobre NutriVida</h3>
+        <p class="text-muted m-0">Fundada en 2016 en Temuco, Región de La Araucanía. Atención personalizada y preventiva[cite: 4].</p>
       </header>
 
-      <!-- Lista dinámica donde JS inyectará los artículos añadidos -->
-      <ul id="lista-carrito" class="list-group mb-3">
-        <!-- Se llena con app.js -->
-      </ul>
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        
+        <!-- Profesional 1 -->
+        <article class="col">
+          <div class="p-3 border rounded-2 h-100 bg-light">
+            <h5 class="fw-bold text-success m-0">Nut. Carolina Fuentes M.</h5>
+            <span class="badge bg-secondary my-2">Código: NUT001</span>
+            <p class="mb-1"><strong>Especialidad:</strong> Obesidad y síndrome metabólico.</p>
+            <p class="small text-muted mb-0"><strong>Atención:</strong> Lunes, Miércoles y Viernes (09:00 – 17:00 hrs).</p>
+          </div>
+        </article>
 
-      <footer class="d-flex justify-content-between align-items-center pt-2">
-        <div>
-          <span class="fs-5 fw-bold">Total a Pagar: </span>
-          <data id="total-carrito" class="fs-5 fw-bold text-success" value="0">$0 CLP</data>
-        </div>
-        <button id="btn-vaciar-carrito" type="button" class="btn btn-outline-danger btn-sm">Vaciar Carrito</button>
-      </footer>
+        <!-- Profesional 2 -->
+        <article class="col">
+          <div class="p-3 border rounded-2 h-100 bg-light">
+            <h5 class="fw-bold text-success m-0">Nut. Rodrigo Sepúlveda A.</h5>
+            <span class="badge bg-secondary my-2">Código: NUT002</span>
+            <p class="mb-1"><strong>Especialidad:</strong> Nutrición deportiva y rendimiento.</p>
+            <p class="small text-muted mb-0"><strong>Atención:</strong> Martes, Jueves y Sábado (09:00 – 14:00 hrs).</p>
+          </div>
+        </article>
+
+        <!-- Profesional 3 -->
+        <article class="col">
+          <div class="p-3 border rounded-2 h-100 bg-light">
+            <h5 class="fw-bold text-success m-0">Nut. Daniela Morales C.</h5>
+            <span class="badge bg-secondary my-2">Código: NUT003</span>
+            <p class="mb-1"><strong>Especialidad:</strong> Alimentación vegetariana, vegana y trastornos alimentarios.</p>
+            <p class="small text-muted mb-0"><strong>Atención:</strong> Lunes a Viernes (08:00 – 13:00 hrs).</p>
+          </div>
+        </article>
+
+        <!-- Profesional 4 -->
+        <article class="col">
+          <div class="p-3 border rounded-2 h-100 bg-light">
+            <h5 class="fw-bold text-success m-0">Nut. Felipe Araya R.</h5>
+            <span class="badge bg-secondary my-2">Código: NUT004</span>
+            <p class="mb-1"><strong>Especialidad:</strong> Nutrición pediátrica y familiar.</p>
+            <p class="small text-muted mb-0"><strong>Atención:</strong> Martes a Viernes (14:00 – 19:00 hrs).</p>
+          </div>
+        </article>
+
+      </div>
     </section>
+
+    <!-- SECCIÓN 4: FORMULARIO DE CONTACTO -->
+    <section id="contacto" class="my-5 p-4 bg-white rounded-3 shadow-sm">
+      <header class="border-bottom pb-2 mb-4">
+        <h3 class="fw-bold text-success m-0">Contáctanos</h3>
+        <p class="text-muted m-0">Envía tus consultas al equipo de NutriVida.</p>
+      </header>
+
+      <form id="form-contacto" novalidate style="max-width: 600px;">
+        <div class="mb-3">
+          <label for="contacto-nombre" class="form-label fw-semibold">Nombre Completo</label>
+          <input type="text" class="form-control" id="contacto-nombre" placeholder="Ej: Juan Pérez" maxlength="100">
+          <div id="error-contacto-nombre" class="text-danger small mt-1"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="contacto-correo" class="form-label fw-semibold">Correo Electrónico</label>
+          <input type="email" class="form-control" id="contacto-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
+          <div id="error-contacto-correo" class="text-danger small mt-1"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="contacto-mensaje" class="form-label fw-semibold">Mensaje o Consulta</label>
+          <textarea class="form-control" id="contacto-mensaje" rows="4" maxlength="500" placeholder="Escribe tu consulta aquí..."></textarea>
+          <div class="d-flex justify-content-between">
+            <div id="error-contacto-mensaje" class="text-danger small mt-1"></div>
+            <small id="contador-caracteres" class="text-muted mt-1">0 / 500</small>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success px-4">Enviar Mensaje</button>
+        <div id="mensaje-exito-contacto" class="alert alert-success mt-3 d-none">
+          ¡Mensaje enviado correctamente! Nos pondremos en contacto a la brevedad.
+        </div>
+      </form>
+    </section>
+
   </main>
+
+  <!-- FOOTER INFORMATIVO -->
+  <footer class="bg-dark text-white text-center py-4 mt-5">
+    <div class="container">
+      <p class="mb-1">&copy; 2026 Clínica Nutricional NutriVida - Todos los derechos reservados.</p>
+      <p class="small text-white-50 mb-0">Temuco, Región de La Araucanía | Proyecto DSY1104 Duoc UC[cite: 4]</p>
+    </div>
+  </footer>
 
 </body>
 </html>
