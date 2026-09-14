@@ -4,16 +4,16 @@ console.log("JavaScript NutriVida conectado correctamente");
 // 1. SECCIÓN HERO / BIENVENIDA
 // ==========================================
 const botonBienvenida = document.getElementById("boton-bienvenida");
-const infoExtra = document.getElementById("info-extra-bienvenida");
+const seccionNosotros = document.getElementById("nosotros");
 
-if (botonBienvenida && infoExtra) {
+if (botonBienvenida && seccionNosotros) {
   botonBienvenida.addEventListener("click", function () {
-    infoExtra.classList.toggle("d-none");
-    if (infoExtra.classList.contains("d-none")) {
-      botonBienvenida.textContent = "Conocer Especialistas";
-    } else {
-      botonBienvenida.textContent = "Ocultar Información";
-    }
+    const posicionIdeal = seccionNosotros.offsetTop - 80;
+    
+    window.scrollTo({ 
+      top: posicionIdeal, 
+      behavior: "smooth" 
+    });
   });
 }
 
