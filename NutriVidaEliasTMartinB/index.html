@@ -32,6 +32,7 @@
       </nav>
 
       <div class="d-flex align-items-center gap-2">
+        <button id="btn-ver-admin" class="btn btn-outline-warning btn-sm">Panel Admin</button>
         <button id="btn-ver-login" class="btn btn-outline-light btn-sm">Iniciar Sesión</button>
         <button id="btn-ver-registro" class="btn btn-outline-light btn-sm">Registrarse</button>
         <button id="btn-carrito" class="btn btn-warning btn-sm">
@@ -63,6 +64,107 @@
       </footer>
     </section>
 
+    <!-- SECCIÓN: PANEL DE ADMINISTRACIÓN / MANTENEDOR DE SERVICIOS -->
+    <section id="seccion-admin" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
+      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+        <h3 class="h4 fw-bold text-warning m-0">Panel de Administración - Servicios</h3>
+        <button id="btn-cerrar-admin" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar Panel</button>
+      </header>
+
+      <div class="row">
+        <!-- Formulario Mantenedor -->
+        <div class="col-lg-5 mb-4">
+          <h5 class="fw-bold">Nuevo Servicio / Producto</h5>
+          <form id="form-admin" novalidate>
+            
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label for="admin-codigo" class="form-label fw-semibold">Código</label>
+                <input type="text" class="form-control" id="admin-codigo" placeholder="Ej: CN005" maxlength="20">
+                <div id="error-admin-codigo" class="text-danger small mt-1"></div>
+              </div>
+              <div class="col-6 mb-3">
+                <label for="admin-precio" class="form-label fw-semibold">Precio (CLP)</label>
+                <input type="number" class="form-control" id="admin-precio" placeholder="0 o superior" min="0">
+                <div id="error-admin-precio" class="text-danger small mt-1"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="admin-nombre" class="form-label fw-semibold">Nombre del Servicio</label>
+              <input type="text" class="form-control" id="admin-nombre" placeholder="Ej: Teleconsulta Pediátrica" maxlength="100">
+              <div id="error-admin-nombre" class="text-danger small mt-1"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label for="admin-stock" class="form-label fw-semibold">Stock Total</label>
+                <input type="number" class="form-control" id="admin-stock" placeholder="0" min="0">
+                <div id="error-admin-stock" class="text-danger small mt-1"></div>
+              </div>
+              <div class="col-6 mb-3">
+                <label for="admin-stock-critico" class="form-label fw-semibold">Stock Crítico</label>
+                <input type="number" class="form-control" id="admin-stock-critico" placeholder="Opcional" min="0">
+                <div id="error-admin-stock-critico" class="text-danger small mt-1"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="admin-categoria" class="form-label fw-semibold">Categoría</label>
+              <select class="form-select" id="admin-categoria">
+                <option value="">Selecciona categoría</option>
+                <option value="consulta">Consulta Presencial</option>
+                <option value="teleconsulta">Teleconsulta</option>
+                <option value="plan">Plan Especializado</option>
+              </select>
+              <div id="error-admin-categoria" class="text-danger small mt-1"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="admin-desc" class="form-label fw-semibold">Descripción (Opcional)</label>
+              <textarea class="form-control" id="admin-desc" rows="2" maxlength="500"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100 fw-bold">Guardar Servicio</button>
+          </form>
+        </div>
+
+        <!-- Tabla visual de ejemplo -->
+        <div class="col-lg-7">
+          <h5 class="fw-bold">Catálogo Registrado</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle small">
+              <thead class="table-light">
+                <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Categoría</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-servicios">
+                <tr>
+                  <td>CN001</td>
+                  <td>Primera Consulta Nutricional</td>
+                  <td>$35.000</td>
+                  <td>Ilimitado</td>
+                  <td>Consulta Presencial</td>
+                </tr>
+                <tr>
+                  <td>PL001</td>
+                  <td>Plan Pérdida de Peso (1 mes)</td>
+                  <td>$65.000</td>
+                  <td>10</td>
+                  <td>Plan Especializado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- SECCIÓN: INICIO DE SESIÓN (Ocultable / Arriba) -->
     <section id="seccion-login" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
       <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
@@ -88,7 +190,7 @@
     <!-- SECCIÓN: REGISTRO DE PACIENTES (Ocultable / Arriba) -->
     <section id="seccion-registro" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
       <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-        <h3 class="h4 fw-bold text-success m-0">Registro de Paciente</h3>
+        <h3 class="h4 fw-bold text-success m-0">Registro de Usuarios</h3>
         <button id="btn-cerrar-registro" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
       </header>
 
@@ -112,10 +214,22 @@
           </div>
         </div>
 
-        <div class="mb-3">
-          <label for="reg-correo" class="form-label fw-semibold">Correo Electrónico</label>
-          <input type="email" class="form-control" id="reg-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
-          <div id="error-reg-correo" class="text-danger small mt-1"></div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="reg-correo" class="form-label fw-semibold">Correo Electrónico</label>
+            <input type="email" class="form-control" id="reg-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
+            <div id="error-reg-correo" class="text-danger small mt-1"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="reg-rol" class="form-label fw-semibold">Tipo de Usuario</label>
+            <select class="form-select" id="reg-rol">
+              <option value="">Selecciona un perfil...</option>
+              <option value="administrador">Administrador</option>
+              <option value="vendedor">Nutricionista / Vendedor</option>
+              <option value="cliente">Paciente / Cliente</option>
+            </select>
+            <div id="error-reg-rol" class="text-danger small mt-1"></div>
+          </div>
         </div>
 
         <div class="row">
@@ -145,7 +259,7 @@
           <div id="error-reg-direccion" class="text-danger small mt-1"></div>
         </div>
 
-        <button type="submit" class="btn btn-success px-4">Registrar Paciente</button>
+        <button type="submit" class="btn btn-success px-4">Registrar Usuario</button>
       </form>
     </section>
 
@@ -157,7 +271,9 @@
       </p>
       <button id="boton-bienvenida" class="btn btn-outline-success btn-lg mt-2">Conocer Especialistas</button>
       
-      
+      <div id="info-extra-bienvenida" class="mt-4 d-none alert alert-success">
+        <strong>NutriVida</strong> cuenta con 4 nutricionistas especializados. Atendemos presencialmente en Temuco y ofrecemos Teleconsulta para todo Chile.
+      </div>
     </section>
 
     <!-- SECCIÓN 2: CATÁLOGO DE SERVICIOS -->
