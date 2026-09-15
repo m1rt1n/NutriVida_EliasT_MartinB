@@ -123,7 +123,11 @@ const errorLoginClave = document.getElementById("error-login-clave");
 if (btnVerLogin && seccionLogin) {
   btnVerLogin.addEventListener("click", function () {
     seccionLogin.classList.toggle("d-none");
-    if (seccionRegistro) seccionRegistro.classList.add("d-none");
+    
+    // Cierra otras secciones si están abiertas
+    if (typeof seccionRegistro !== 'undefined' && seccionRegistro) seccionRegistro.classList.add("d-none");
+    if (typeof seccionAdmin !== 'undefined' && seccionAdmin) seccionAdmin.classList.add("d-none");
+    
     if (!seccionLogin.classList.contains("d-none")) {
       setTimeout(() => {
         window.scrollTo({ top: seccionLogin.offsetTop - 80, behavior: "smooth" });
@@ -193,6 +197,8 @@ const regRut = document.getElementById("reg-rut");
 const regNombre = document.getElementById("reg-nombre");
 const regApellidos = document.getElementById("reg-apellidos");
 const regCorreo = document.getElementById("reg-correo");
+// Nuevo selector para el rol
+const regRol = document.getElementById("reg-rol");
 const regRegion = document.getElementById("reg-region");
 const regComuna = document.getElementById("reg-comuna");
 const regDireccion = document.getElementById("reg-direccion");
@@ -208,7 +214,11 @@ const comunasPorRegion = {
 if (btnVerRegistro && seccionRegistro) {
   btnVerRegistro.addEventListener("click", function () {
     seccionRegistro.classList.toggle("d-none");
-    if (seccionLogin) seccionLogin.classList.add("d-none");
+    
+    // Cierra otras secciones si están abiertas
+    if (typeof seccionLogin !== 'undefined' && seccionLogin) seccionLogin.classList.add("d-none");
+    if (typeof seccionAdmin !== 'undefined' && seccionAdmin) seccionAdmin.classList.add("d-none");
+    
     if (!seccionRegistro.classList.contains("d-none")) {
       setTimeout(() => {
         window.scrollTo({ top: seccionRegistro.offsetTop - 80, behavior: "smooth" });
@@ -322,6 +332,15 @@ if (formRegistro) {
       errorCorreo.textContent = "";
     }
 
+    // Rol de usuario (Nuevo requerimiento)
+    const errorRol = document.getElementById("error-reg-rol");
+    if (regRol && !regRol.value) {
+      errorRol.textContent = "Debes seleccionar un tipo de usuario.";
+      esValido = false;
+    } else if (errorRol) {
+      errorRol.textContent = "";
+    }
+
     // Región y Comuna
     const errorRegion = document.getElementById("error-reg-region");
     const errorComuna = document.getElementById("error-reg-comuna");
@@ -349,7 +368,7 @@ if (formRegistro) {
     }
 
     if (esValido) {
-      alert("¡Paciente registrado exitosamente en NutriVida!");
+      alert("¡Usuario registrado exitosamente en NutriVida!");
       formRegistro.reset();
       regComuna.disabled = true;
       regComuna.innerHTML = '<option value="">Primero selecciona una región</option>';
@@ -428,6 +447,134 @@ if (formContacto) {
       setTimeout(function () {
         mensajeExito.classList.add("d-none");
       }, 4000);
+    }
+  });
+}
+
+// ==========================================
+// 6. PANEL DE ADMINISTRADOR (MANTENEDOR)
+// ==========================================
+// Definimos los selectores de la nueva sección de Administrador
+const btnVerAdmin = document.getElementById("btn-ver-admin");
+const seccionAdmin = document.getElementById("seccion-admin");
+const btnCerrarAdmin = document.getElementById("btn-cerrar-admin");
+
+const formAdmin = document.getElementById("form-admin");
+const adminCodigo = document.getElementById("admin-codigo");
+const adminPrecio = document.getElementById("admin-precio");
+const adminNombre = document.getElementById("admin-nombre");
+const adminStock = document.getElementById("admin-stock");
+const adminStockCritico = document.getElementById("admin-stock-critico");
+const adminCategoria = document.getElementById("admin-categoria");
+
+// Lógica para abrir/cerrar el panel de admin
+if (btnVerAdmin && seccionAdmin) {
+  btnVerAdmin.addEventListener("click", function () {
+    seccionAdmin.classList.toggle("d-none");
+    
+    // Cierra otras secciones si están abiertas para mantener limpio el HTML
+    if (typeof seccionLogin !== 'undefined' && seccionLogin) seccionLogin.classList.add("d-none");
+    if (typeof seccionRegistro !== 'undefined' && seccionRegistro) seccionRegistro.classList.add("d-none");
+    
+    if (!seccionAdmin.classList.contains("d-none")) {
+      setTimeout(() => {
+        window.scrollTo({ top: seccionAdmin.offsetTop - 80, behavior: "smooth" });
+      }, 50);
+    }
+  });
+}
+
+if (btnCerrarAdmin && seccionAdmin) {
+  btnCerrarAdmin.addEventListener("click", function () {
+    seccionAdmin.classList.add("d-none");
+  });
+}
+
+// Validación estricta del formulario del Mantenedor
+if (formAdmin) {
+  formAdmin.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let adminValido = true;
+
+    // Validación Código
+    const errCodigo = document.getElementById("error-admin-codigo");
+    const valCodigo = adminCodigo.value.trim();
+    if (!valCodigo) {
+      errCodigo.textContent = "El código es obligatorio.";
+      adminValido = false;
+    } else if (valCodigo.length < 3) {
+      errCodigo.textContent = "El código debe tener al menos 3 caracteres.";
+      adminValido = false;
+    } else {
+      errCodigo.textContent = "";
+    }
+
+    // Validación Nombre
+    const errNombre = document.getElementById("error-admin-nombre");
+    const valNombre = adminNombre.value.trim();
+    if (!valNombre) {
+      errNombre.textContent = "El nombre es obligatorio.";
+      adminValido = false;
+    } else if (valNombre.length > 100) {
+      errNombre.textContent = "Máximo 100 caracteres.";
+      adminValido = false;
+    } else {
+      errNombre.textContent = "";
+    }
+
+    // Validación Precio
+    const errPrecio = document.getElementById("error-admin-precio");
+    const valPrecio = parseInt(adminPrecio.value, 10);
+    if (isNaN(valPrecio)) {
+      errPrecio.textContent = "El precio es obligatorio.";
+      adminValido = false;
+    } else if (valPrecio < 0) {
+      errPrecio.textContent = "El precio no puede ser negativo.";
+      adminValido = false;
+    } else {
+      errPrecio.textContent = "";
+    }
+
+    // Validación Stock
+    const errStock = document.getElementById("error-admin-stock");
+    const valStock = parseInt(adminStock.value, 10);
+    if (isNaN(valStock)) {
+      errStock.textContent = "El stock es obligatorio.";
+      adminValido = false;
+    } else if (valStock < 0) {
+      errStock.textContent = "El stock no puede ser negativo.";
+      adminValido = false;
+    } else {
+      errStock.textContent = "";
+    }
+
+    // Validación Stock Crítico
+    const errCritico = document.getElementById("error-admin-stock-critico");
+    const valCritico = parseInt(adminStockCritico.value, 10);
+    if (!isNaN(valCritico) && valCritico < 0) {
+      errCritico.textContent = "El stock crítico no puede ser negativo.";
+      adminValido = false;
+    } else {
+      errCritico.textContent = "";
+    }
+
+    // Validación Categoría
+    const errCategoria = document.getElementById("error-admin-categoria");
+    if (!adminCategoria.value) {
+      errCategoria.textContent = "Selecciona una categoría.";
+      adminValido = false;
+    } else {
+      errCategoria.textContent = "";
+    }
+
+    // Guardado exitoso o alerta
+    if (adminValido) {
+      if (!isNaN(valCritico) && valStock <= valCritico) {
+        alert("⚠️ ALERTA: El stock ingresado es igual o inferior al stock crítico definido.");
+      } else {
+        alert("Servicio guardado exitosamente en el catálogo.");
+      }
+      formAdmin.reset();
     }
   });
 }
