@@ -2,8 +2,47 @@ html {
   scroll-behavior: smooth;
 }
 
+.logo-navbar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.hero-banner {
+  /* El linear-gradient es el filtro negro al 60% de opacidad (0.6) */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/pexels-yaroslav-shuraev-8845419.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0.5rem;
+  padding: 6rem 2rem; /* Espaciado interno para dar altura */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-texto {
+  max-width: 700px;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8); /* Sombra para que el texto resalte más */
+}
+
+.banner-equipo {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  object-position: center 20%; /* Enfoca la imagen un poco más arriba del centro */
+}
+
 * {
   box-sizing: border-box;
+}
+
+/* Efecto hover suave para los botones principales */
+.btn-success:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
 }
 
 body {

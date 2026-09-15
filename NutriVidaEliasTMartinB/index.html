@@ -17,25 +17,24 @@
 <body>
 
   <!-- HEADER Y NAVEGACIÓN PRINCIPAL -->
-  <header class="py-3 sticky-top shadow-sm">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center">
-      <div>
-        <h1 id="titulo-sitio" class="h3 m-0">NutriVida</h1>
-        <small class="text-white-50">Clínica Nutricional - Temuco</small>
-      </div>
+  <header class="py-2 sticky-top shadow-sm" style="background-color: #1e5631;">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <a href="#inicio" class="text-decoration-none">
+        <img src="img/LogoNutriVida.jpg" alt="Logotipo Clínica NutriVida" class="rounded-3 shadow-sm" style="height: 65px; width: auto; object-fit: contain;">
+      </a>
 
-      <nav>
-        <a href="#inicio" class="text-white me-3 text-decoration-none">Inicio</a>
-        <a href="#servicios" class="text-white me-3 text-decoration-none">Servicios</a>
-        <a href="#nosotros" class="text-white me-3 text-decoration-none">Nosotros</a>
-        <a href="#contacto" class="text-white me-3 text-decoration-none">Contacto</a>
+      <nav class="d-flex gap-4">
+        <a href="#inicio" class="text-white text-decoration-none fw-semibold">Inicio</a>
+        <a href="#servicios" class="text-white text-decoration-none fw-semibold">Servicios</a>
+        <a href="#nosotros" class="text-white text-decoration-none fw-semibold">Nosotros</a>
+        <a href="#contacto" class="text-white text-decoration-none fw-semibold">Contacto</a>
       </nav>
 
       <div class="d-flex align-items-center gap-2">
-        <button id="btn-ver-admin" class="btn btn-outline-warning btn-sm">Panel Admin</button>
-        <button id="btn-ver-login" class="btn btn-outline-light btn-sm">Iniciar Sesión</button>
-        <button id="btn-ver-registro" class="btn btn-outline-light btn-sm">Registrarse</button>
-        <button id="btn-carrito" class="btn btn-warning btn-sm">
+        <button id="btn-ver-admin" class="btn btn-outline-warning btn-sm fw-bold">Panel Admin</button>
+        <button id="btn-ver-login" class="btn btn-outline-light btn-sm fw-bold">Iniciar Sesión</button>
+        <button id="btn-ver-registro" class="btn btn-outline-light btn-sm fw-bold">Registrarse</button>
+        <button id="btn-carrito" class="btn btn-warning btn-sm fw-bold shadow-sm">
           🛒 Carrito (<span id="contador-productos">0</span>)
         </button>
       </div>
@@ -264,16 +263,12 @@
     </section>
 
     <!-- SECCIÓN 1: BIENVENIDA / HERO -->
-    <section id="inicio" class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
-      <h2 id="mensaje-bienvenida" class="display-6 fw-bold text-success">Asesoría Nutricional Personalizada</h2>
-      <p class="fs-5 text-muted mt-3">
+    <section id="inicio" class="hero-banner text-center text-white mb-4 shadow-sm">
+      <h2 id="mensaje-bienvenida" class="display-5 fw-bold mb-3">Asesoría Nutricional Personalizada</h2>
+      <p class="fs-5 mx-auto mb-4 hero-texto">
         Planes nutricionales a tu medida: pérdida de peso, rendimiento deportivo y alimentación vegetariana/vegana.
       </p>
-      <button id="boton-bienvenida" class="btn btn-outline-success btn-lg mt-2">Conocer Especialistas</button>
-      
-      <div id="info-extra-bienvenida" class="mt-4 d-none alert alert-success">
-        <strong>NutriVida</strong> cuenta con 4 nutricionistas especializados. Atendemos presencialmente en Temuco y ofrecemos Teleconsulta para todo Chile.
-      </div>
+      <button id="boton-bienvenida" class="btn btn-success btn-lg px-5 shadow fw-bold">Conocer Especialistas</button>
     </section>
 
     <!-- SECCIÓN 2: CATÁLOGO DE SERVICIOS -->
@@ -350,6 +345,10 @@
 
     <!-- SECCIÓN 3: NOSOTROS / EQUIPO PROFESIONAL -->
     <section id="nosotros" class="my-5 p-4 bg-white rounded-3 shadow-sm">
+      <figure class="mb-4">
+        <img src="img/Nutricionistas.jpg" alt="Equipo de especialistas de NutriVida" class="img-fluid rounded-3 shadow-sm banner-equipo">
+      </figure>
+
       <header class="border-bottom pb-2 mb-4">
         <h3 class="fw-bold text-success m-0">Sobre NutriVida</h3>
         <p class="text-muted m-0">Fundada en 2016 en Temuco, Región de La Araucanía. Atención personalizada y preventiva.</p>
