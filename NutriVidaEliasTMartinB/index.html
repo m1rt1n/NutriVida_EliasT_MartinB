@@ -3,445 +3,718 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clínica Nutricional NutriVida</title>
+  <title>Clínica Nutricional NutriVida | Especialidad en Nutrición</title>
 
-  <!-- Bootstrap 5 CDN -->
+  <!-- Bootstrap 5.3.3 CSS & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <!-- Estilos propios externos -->
+  <!-- Estilos propios -->
   <link rel="stylesheet" href="css/estilos.css">
 
-  <!-- Script JS diferido -->
+  <!-- Scripts diferidos -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
 
+  <!-- BARRA SUPERIOR CLÍNICA (Estilo RedSalud) -->
+  <aside class="top-bar py-1 text-white small d-none d-md-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div>
+        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Av. Alemania 0850, Temuco, Región de La Araucanía
+        <span class="mx-2">|</span>
+        <i class="bi bi-clock-fill text-warning me-1"></i> Lunes a Sábado: 08:00 a 19:00 hrs
+      </div>
+      <div>
+        <span id="badge-sesion-activa" class="badge bg-warning text-dark me-2 d-none">Rol: Invitado</span>
+        <a href="#contacto" class="text-white text-decoration-none me-3"><i class="bi bi-headset me-1"></i>Centro de Ayuda</a>
+        <span class="text-white-50">Modalidad Presencial y Teleconsulta</span>
+      </div>
+    </div>
+  </aside>
+
   <!-- HEADER Y NAVEGACIÓN PRINCIPAL -->
-  <header class="py-2 sticky-top shadow-sm" style="background-color: #1e5631;">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
-        <a href="#inicio" class="text-decoration-none">
-        <img src="img/LogoNutriVida.jpg" alt="Logotipo Clínica NutriVida" class="rounded-3 shadow-sm" style="height: 65px; width: auto; object-fit: contain;">
+  <header class="navbar navbar-expand-lg sticky-top py-2 header-nutrivida">
+    <div class="container">
+      
+      <!-- 1. Marca / Logo limpio tipo cápsula clínica -->
+      <a href="#inicio" class="navbar-brand d-flex align-items-center text-decoration-none m-0 py-1">
+        <div class="logo-wrapper me-2">
+          <img src="img/LogoNutriVida.jpg" alt="Logotipo Clínica NutriVida" class="logo-navbar">
+        </div>
+        <div class="lh-1">
+          <span class="fw-bold text-white fs-5 d-block tracking-tight">NutriVida</span>
+          <small class="text-warning fw-semibold" style="font-size: 0.7rem;">CLÍNICA NUTRICIONAL</small>
+        </div>
       </a>
 
-      <nav class="d-flex gap-4">
-        <a href="#inicio" class="text-white text-decoration-none fw-semibold">Inicio</a>
-        <a href="#servicios" class="text-white text-decoration-none fw-semibold">Servicios</a>
-        <a href="#nosotros" class="text-white text-decoration-none fw-semibold">Nosotros</a>
-        <a href="#contacto" class="text-white text-decoration-none fw-semibold">Contacto</a>
-      </nav>
+      <!-- Botón menú celular -->
+      <button class="navbar-toggler border-light text-white" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavegacion" aria-label="Abrir menú">
+        <i class="bi bi-list fs-2"></i>
+      </button>
 
-      <div class="d-flex align-items-center gap-2">
-        <button id="btn-ver-admin" class="btn btn-outline-warning btn-sm fw-bold">Panel Admin</button>
-        <button id="btn-ver-login" class="btn btn-outline-light btn-sm fw-bold">Iniciar Sesión</button>
-        <button id="btn-ver-registro" class="btn btn-outline-light btn-sm fw-bold">Registrarse</button>
-        <button id="btn-carrito" class="btn btn-warning btn-sm fw-bold shadow-sm">
-          🛒 Carrito (<span id="contador-productos">0</span>)
-        </button>
+      <!-- 2. Enlaces en 1 sola línea y Botones alineados -->
+      <div class="collapse navbar-collapse" id="menuNavegacion">
+        <nav class="navbar-nav mx-auto gap-lg-1 my-2 my-lg-0 align-items-lg-center">
+          <a href="#inicio" class="nav-link link-menu">Inicio</a>
+          <a href="#motivos" class="nav-link link-menu">Especialidad</a>
+          <a href="#servicios" class="nav-link link-menu">Aranceles y Planes</a>
+          <a href="#nosotros" class="nav-link link-menu">Equipo Médico</a>
+          <a href="#preguntas" class="nav-link link-menu">Dudas</a>
+          <a href="#contacto" class="nav-link link-menu">Contacto</a>
+        </nav>
+
+        <!-- 3. Botones compactos sin bajar de línea (flex-nowrap) -->
+        <div class="d-flex flex-nowrap align-items-center gap-2 mt-2 mt-lg-0">
+          <button id="btn-ver-admin" class="btn btn-outline-warning btn-sm fw-semibold text-nowrap d-none" type="button">
+            <i class="bi bi-sliders me-1"></i>Admin
+          </button>
+          <button id="btn-ver-login" class="btn btn-acceso btn-sm fw-semibold text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin">
+            <i class="bi bi-person me-1"></i>Ingresar
+          </button>
+          <button id="btn-ver-registro" class="btn btn-outline-light btn-sm fw-semibold text-nowrap" type="button" data-bs-toggle="modal" data-bs-target="#modalRegistro">
+            Crear Cuenta
+          </button>
+          <button id="btn-cerrar-sesion" class="btn btn-danger btn-sm fw-semibold text-nowrap d-none" type="button">
+            Salir
+          </button>
+          <button class="btn btn-warning btn-sm fw-bold text-dark text-nowrap shadow-sm px-3 rounded-pill" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito">
+            <i class="bi bi-calendar2-check me-1"></i>Reservas (<span id="contador-productos">0</span>)
+          </button>
+        </div>
       </div>
+
     </div>
   </header>
 
-  <main class="container my-4">
+  <main>
 
-    <!-- SECCIÓN: CAJA DE CARRITO (Ocultable / Arriba) -->
-    <section id="seccion-carrito" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
-      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-        <h3 class="h4 fw-bold text-success m-0">Tu Carrito de Servicios</h3>
-        <button id="btn-cerrar-carrito" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
-      </header>
-
-      <ul id="lista-carrito" class="list-group mb-3">
-        <!-- Rellenado dinámicamente por JS -->
-      </ul>
-
-      <footer class="d-flex justify-content-between align-items-center pt-2">
-        <div>
-          <span class="fs-5 fw-bold">Total a Pagar: </span>
-          <data id="total-carrito" class="fs-5 fw-bold text-success" value="0">$0 CLP</data>
+    <!-- SECCIÓN 1: HERO CLÍNICO Y ACCESOS RÁPIDOS -->
+    <section id="inicio" class="hero-banner text-white position-relative">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-lg-8 text-center text-lg-start">
+            <span class="badge bg-warning text-dark fw-bold mb-3 px-3 py-2 rounded-pill">
+              <i class="bi bi-heart-pulse-fill me-1"></i> Especialidad de Nutrición y Dietética
+            </span>
+            <h1 id="mensaje-bienvenida" class="display-4 fw-bold mb-3">Nutrición Clínica y Planes a tu Medida</h1>
+            <p class="fs-5 mb-4 hero-texto">
+              En Clínica NutriVida te acompañamos en la prevención, diagnóstico y tratamiento nutricional para mejorar tu calidad de vida, rendimiento deportivo y salud metabólica.
+            </p>
+            <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+              <a href="#servicios" class="btn btn-success btn-lg px-4 fw-bold shadow">
+                <i class="bi bi-calendar2-check me-2"></i>Ver Prestaciones y Precios
+              </a>
+              <button id="boton-bienvenida" class="btn btn-outline-light btn-lg px-4 fw-bold" type="button">
+                Conocer Especialistas
+              </button>
+            </div>
+          </div>
         </div>
-        <button id="btn-vaciar-carrito" type="button" class="btn btn-outline-danger btn-sm">Vaciar Carrito</button>
-      </footer>
+      </div>
     </section>
 
-    <!-- SECCIÓN: PANEL DE ADMINISTRACIÓN / MANTENEDOR DE SERVICIOS -->
-    <section id="seccion-admin" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
-      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-        <h3 class="h4 fw-bold text-warning m-0">Panel de Administración - Servicios</h3>
-        <button id="btn-cerrar-admin" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar Panel</button>
-      </header>
-
-      <div class="row">
-        <!-- Formulario Mantenedor -->
-        <div class="col-lg-5 mb-4">
-          <h5 class="fw-bold">Nuevo Servicio / Producto</h5>
-          <form id="form-admin" novalidate>
-            
-            <div class="row">
-              <div class="col-6 mb-3">
-                <label for="admin-codigo" class="form-label fw-semibold">Código</label>
-                <input type="text" class="form-control" id="admin-codigo" placeholder="Ej: CN005" maxlength="20">
-                <div id="error-admin-codigo" class="text-danger small mt-1"></div>
+    <!-- TARJETAS DE ACCESO RÁPIDO (Superpuestas estilo RedSalud) -->
+    <section class="container tarjetas-acceso-rapido mb-5" aria-label="Accesos rápidos">
+      <div class="row row-cols-1 row-cols-md-4 g-3">
+        <article class="col">
+          <a href="#servicios" data-filtro-rapido="Consulta" class="card h-100 border-0 shadow-sm p-3 text-decoration-none tarjeta-atajo">
+            <div class="d-flex align-items-center">
+              <div class="icono-atajo bg-success bg-opacity-10 text-success rounded-circle p-3 me-3">
+                <i class="bi bi-clipboard2-pulse fs-3"></i>
               </div>
-              <div class="col-6 mb-3">
-                <label for="admin-precio" class="form-label fw-semibold">Precio (CLP)</label>
-                <input type="number" class="form-control" id="admin-precio" placeholder="0 o superior" min="0">
-                <div id="error-admin-precio" class="text-danger small mt-1"></div>
+              <div>
+                <h2 class="h6 fw-bold text-dark m-0">Consultas Médicas</h2>
+                <small class="text-muted">Presencial y Online</small>
               </div>
             </div>
-
-            <div class="mb-3">
-              <label for="admin-nombre" class="form-label fw-semibold">Nombre del Servicio</label>
-              <input type="text" class="form-control" id="admin-nombre" placeholder="Ej: Teleconsulta Pediátrica" maxlength="100">
-              <div id="error-admin-nombre" class="text-danger small mt-1"></div>
-            </div>
-
-            <div class="row">
-              <div class="col-6 mb-3">
-                <label for="admin-stock" class="form-label fw-semibold">Stock Total</label>
-                <input type="number" class="form-control" id="admin-stock" placeholder="0" min="0">
-                <div id="error-admin-stock" class="text-danger small mt-1"></div>
+          </a>
+        </article>
+        <article class="col">
+          <a href="#servicios" data-filtro-rapido="Plan especializado" class="card h-100 border-0 shadow-sm p-3 text-decoration-none tarjeta-atajo">
+            <div class="d-flex align-items-center">
+              <div class="icono-atajo bg-warning bg-opacity-25 text-dark rounded-circle p-3 me-3">
+                <i class="bi bi-award fs-3"></i>
               </div>
-              <div class="col-6 mb-3">
-                <label for="admin-stock-critico" class="form-label fw-semibold">Stock Crítico</label>
-                <input type="number" class="form-control" id="admin-stock-critico" placeholder="Opcional" min="0">
-                <div id="error-admin-stock-critico" class="text-danger small mt-1"></div>
+              <div>
+                <h2 class="h6 fw-bold text-dark m-0">Planes Mensuales</h2>
+                <small class="text-muted">Seguimiento continuo</small>
               </div>
             </div>
+          </a>
+        </article>
+        <article class="col">
+          <a href="#servicios" data-filtro-rapido="Evaluación" class="card h-100 border-0 shadow-sm p-3 text-decoration-none tarjeta-atajo">
+            <div class="d-flex align-items-center">
+              <div class="icono-atajo bg-info bg-opacity-10 text-info rounded-circle p-3 me-3">
+                <i class="bi bi-activity fs-3"></i>
+              </div>
+              <div>
+                <h2 class="h6 fw-bold text-dark m-0">Exámenes y Medición</h2>
+                <small class="text-muted">Bioimpedanciometría</small>
+              </div>
+            </div>
+          </a>
+        </article>
+        <article class="col">
+          <a href="#servicios" data-filtro-rapido="Taller grupal" class="card h-100 border-0 shadow-sm p-3 text-decoration-none tarjeta-atajo">
+            <div class="d-flex align-items-center">
+              <div class="icono-atajo bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
+                <i class="bi bi-people fs-3"></i>
+              </div>
+              <div>
+                <h2 class="h6 fw-bold text-dark m-0">Talleres Grupales</h2>
+                <small class="text-muted">Cocina y educación</small>
+              </div>
+            </div>
+          </a>
+        </article>
+      </div>
+    </section>
 
-            <div class="mb-3">
-              <label for="admin-categoria" class="form-label fw-semibold">Categoría</label>
-              <select class="form-select" id="admin-categoria">
-                <option value="">Selecciona categoría</option>
-                <option value="consulta">Consulta Presencial</option>
-                <option value="teleconsulta">Teleconsulta</option>
-                <option value="plan">Plan Especializado</option>
+    <div class="container">
+
+      <!-- SECCIÓN: PANEL DE ADMINISTRACIÓN / MANTENEDOR DE SERVICIOS (Oculto por RBAC) -->
+      <section id="seccion-admin" class="my-5 p-4 border border-warning border-2 rounded-4 bg-white shadow d-none">
+        <header class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+          <div>
+            <span class="badge bg-warning text-dark mb-1">Módulo Protegido RBAC</span>
+            <h2 class="h4 fw-bold text-success m-0">Panel de Administración - Mantenedor de Catálogo</h2>
+          </div>
+          <button id="btn-cerrar-admin" type="button" class="btn btn-sm btn-outline-secondary">✕ Ocultar Panel</button>
+        </header>
+
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="p-3 bg-light rounded-3 border">
+              <h3 class="h6 fw-bold text-success mb-3">Agregar / Editar Prestación</h3>
+              <form id="form-admin" novalidate>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <label for="admin-codigo" class="form-label small fw-semibold">Código *</label>
+                    <input type="text" class="form-control form-control-sm" id="admin-codigo" placeholder="Ej: CN006" maxlength="10">
+                    <div id="error-admin-codigo" class="text-danger small"></div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <label for="admin-precio" class="form-label small fw-semibold">Precio (CLP) *</label>
+                    <input type="number" class="form-control form-control-sm" id="admin-precio" placeholder="35000" min="0">
+                    <div id="error-admin-precio" class="text-danger small"></div>
+                  </div>
+                </div>
+
+                <div class="mb-2">
+                  <label for="admin-nombre" class="form-label small fw-semibold">Nombre del Servicio *</label>
+                  <input type="text" class="form-control form-control-sm" id="admin-nombre" placeholder="Ej: Consulta Nutrición Renal" maxlength="100">
+                  <div id="error-admin-nombre" class="text-danger small"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <label for="admin-categoria" class="form-label small fw-semibold">Tipo *</label>
+                    <select class="form-select form-select-sm" id="admin-categoria">
+                      <option value="">Seleccionar...</option>
+                      <option value="Consulta">Consulta</option>
+                      <option value="Plan especializado">Plan especializado</option>
+                      <option value="Evaluación">Evaluación</option>
+                      <option value="Taller grupal">Taller grupal</option>
+                    </select>
+                    <div id="error-admin-categoria" class="text-danger small"></div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <label for="admin-modalidad" class="form-label small fw-semibold">Modalidad *</label>
+                    <select class="form-select form-select-sm" id="admin-modalidad">
+                      <option value="Presencial">Presencial</option>
+                      <option value="Online (video)">Online (video)</option>
+                      <option value="Presencial (grupo)">Presencial (grupo)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <label for="admin-duracion" class="form-label small fw-semibold">Duración</label>
+                    <input type="text" class="form-control form-control-sm" id="admin-duracion" placeholder="Ej: 30 min o —">
+                  </div>
+                  <div class="col-6 mb-2">
+                    <label for="admin-stock" class="form-label small fw-semibold">Cupos Semanales *</label>
+                    <input type="number" class="form-control form-control-sm" id="admin-stock" placeholder="15" min="1">
+                    <div id="error-admin-stock" class="text-danger small"></div>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="admin-desc" class="form-label small fw-semibold">Descripción Clínica *</label>
+                  <textarea class="form-control form-control-sm" id="admin-desc" rows="2" maxlength="300" placeholder="Detalle de la prestación..."></textarea>
+                  <div id="error-admin-desc" class="text-danger small"></div>
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-sm w-100 fw-bold">
+                  <i class="bi bi-save me-1"></i>Guardar en Catálogo
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h3 class="h6 fw-bold m-0">Catálogo Activo (<span id="total-items-admin">0</span> prestaciones)</h3>
+              <button id="btn-restaurar-catalogo" class="btn btn-outline-danger btn-sm">Restaurar Excel Original</button>
+            </div>
+            <div class="table-responsive border rounded-3" style="max-height: 380px;">
+              <table class="table table-sm table-hover align-middle mb-0 small">
+                <thead class="table-light sticky-top">
+                  <tr>
+                    <th>Código</th>
+                    <th>Tipo</th>
+                    <th>Servicio / Plan</th>
+                    <th>Modalidad</th>
+                    <th>Precio</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-servicios-admin">
+                  <!-- Renderizado por JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: ¿CUÁNDO CONSULTAR? (Inspirado en RedSalud Nutrición) -->
+      <section id="motivos" class="my-5 py-4">
+        <header class="text-center mb-4">
+          <span class="text-success fw-bold text-uppercase small">Atención Integral y Preventiva</span>
+          <h2 class="fw-bold text-dark mt-1">¿En qué consiste la especialidad de Nutrición?</h2>
+          <p class="text-muted mx-auto" style="max-width: 750px;">
+            Nuestros profesionales evalúan tu estado nutricional mediante antropometría y bioimpedanciometría, diseñando planes adaptados a tus objetivos clínicos y estilo de vida.
+          </p>
+        </header>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+          <article class="col">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-white">
+              <i class="bi bi-heart-pulse text-success fs-1 mb-2"></i>
+              <h3 class="h5 fw-bold">Control Metabólico</h3>
+              <p class="small text-muted mb-0">Manejo nutricional especializado para resistencia a la insulina, diabetes, hipertensión y dislipidemias.</p>
+            </div>
+          </article>
+          <article class="col">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-white">
+              <i class="bi bi-bicycle text-success fs-1 mb-2"></i>
+              <h3 class="h5 fw-bold">Nutrición Deportiva</h3>
+              <p class="small text-muted mb-0">Optimización del rendimiento físico, aumento de masa muscular y estrategias de hidratación pre y post entreno.</p>
+            </div>
+          </article>
+          <article class="col">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-white">
+              <i class="bi bi-flower1 text-success fs-1 mb-2"></i>
+              <h3 class="h5 fw-bold">Alimentación Plant-Based</h3>
+              <p class="small text-muted mb-0">Transición y planificación vegetariana o vegana segura, asegurando niveles óptimos de B12, hierro, calcio y proteínas.</p>
+            </div>
+          </article>
+          <article class="col">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-white">
+              <i class="bi bi-emoji-smile text-success fs-1 mb-2"></i>
+              <h3 class="h5 fw-bold">Pediátrica y Familiar</h3>
+              <p class="small text-muted mb-0">Evaluación del crecimiento infantil (2 a 12 años), educación en hábitos saludables y talleres de cocina.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: CATÁLOGO INTERACTIVO DE SERVICIOS Y PLANES (18 ítems del Excel) -->
+      <section id="servicios" class="my-5 p-4 bg-white rounded-4 shadow-sm">
+        <header class="row align-items-center mb-4 pb-3 border-bottom g-3">
+          <div class="col-md-6">
+            <span class="badge bg-success mb-1">Arancel Clínico 2026</span>
+            <h2 class="h3 fw-bold text-success m-0">Prestaciones, Planes y Talleres</h2>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+              <input type="search" id="buscador-servicios" class="form-control border-start-0" placeholder="Buscar por nombre, código (ej: CN001) o modalidad...">
+            </div>
+          </div>
+        </header>
+
+        <!-- Pestañas de Categorías -->
+        <ul class="nav nav-pills mb-4 gap-2" id="tabs-categorias" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-semibold" type="button" data-categoria="Todos">Todos (18)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-semibold" type="button" data-categoria="Consulta">Consultas (5)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-semibold" type="button" data-categoria="Plan especializado">Planes Especializados (6)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-semibold" type="button" data-categoria="Evaluación">Evaluaciones y Exámenes (4)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link fw-semibold" type="button" data-categoria="Taller grupal">Talleres Grupales (3)</button>
+          </li>
+        </ul>
+
+        <!-- Grilla dinámica de tarjetas -->
+        <div id="contenedor-servicios" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          <!-- Rellenado dinámicamente por app.js -->
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: EQUIPO MÉDICO / NUTRICIONISTAS -->
+      <section id="nosotros" class="my-5 p-4 bg-white rounded-4 shadow-sm">
+        <div class="row align-items-center g-4 mb-4 pb-3 border-bottom">
+          <div class="col-lg-6">
+            <span class="badge bg-warning text-dark fw-bold mb-2">Staff Clínico en Temuco</span>
+            <h2 class="h3 fw-bold text-success">Nuestro Equipo de Especialistas</h2>
+            <p class="text-muted mb-3">
+              Fundada en 2016 en Temuco, Región de La Araucanía. Contamos con 4 nutricionistas acreditados con atención presencial y teleconsulta para todo Chile, enfocados en reducir la inasistencia y digitalizar tu seguimiento clínico.
+            </p>
+            <div class="d-flex gap-3 align-items-center">
+              <label for="filtro-especialidad" class="fw-semibold small text-nowrap">Filtrar por área:</label>
+              <select id="filtro-especialidad" class="form-select form-select-sm" style="max-width: 280px;">
+                <option value="todos">Todas las especialidades (4)</option>
+                <option value="Obesidad">Obesidad y síndrome metabólico</option>
+                <option value="deportiva">Nutrición deportiva y rendimiento</option>
+                <option value="vegetariana">Alimentación vegetariana y vegana</option>
+                <option value="pediátrica">Nutrición pediátrica y familiar</option>
               </select>
-              <div id="error-admin-categoria" class="text-danger small mt-1"></div>
             </div>
-
-            <div class="mb-3">
-              <label for="admin-desc" class="form-label fw-semibold">Descripción (Opcional)</label>
-              <textarea class="form-control" id="admin-desc" rows="2" maxlength="500"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-warning w-100 fw-bold">Guardar Servicio</button>
-          </form>
-        </div>
-
-        <!-- Tabla visual de ejemplo -->
-        <div class="col-lg-7">
-          <h5 class="fw-bold">Catálogo Registrado</h5>
-          <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle small">
-              <thead class="table-light">
-                <tr>
-                  <th>Código</th>
-                  <th>Nombre</th>
-                  <th>Precio</th>
-                  <th>Stock</th>
-                  <th>Categoría</th>
-                </tr>
-              </thead>
-              <tbody id="tabla-servicios">
-                <tr>
-                  <td>CN001</td>
-                  <td>Primera Consulta Nutricional</td>
-                  <td>$35.000</td>
-                  <td>Ilimitado</td>
-                  <td>Consulta Presencial</td>
-                </tr>
-                <tr>
-                  <td>PL001</td>
-                  <td>Plan Pérdida de Peso (1 mes)</td>
-                  <td>$65.000</td>
-                  <td>10</td>
-                  <td>Plan Especializado</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN: INICIO DE SESIÓN (Ocultable / Arriba) -->
-    <section id="seccion-login" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
-      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-        <h3 class="h4 fw-bold text-success m-0">Iniciar Sesión</h3>
-        <button id="btn-cerrar-login" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
-      </header>
-
-      <form id="form-login" novalidate style="max-width: 450px;">
-        <div class="mb-3">
-          <label for="login-correo" class="form-label fw-semibold">Correo Electrónico</label>
-          <input type="email" class="form-control" id="login-correo" placeholder="usuario@duoc.cl" maxlength="100">
-          <div id="error-login-correo" class="text-danger small mt-1"></div>
-        </div>
-        <div class="mb-3">
-          <label for="login-clave" class="form-label fw-semibold">Contraseña</label>
-          <input type="password" class="form-control" id="login-clave" placeholder="4 a 10 caracteres">
-          <div id="error-login-clave" class="text-danger small mt-1"></div>
-        </div>
-        <button type="submit" class="btn btn-primary">Ingresar</button>
-      </form>
-    </section>
-
-    <!-- SECCIÓN: REGISTRO DE PACIENTES (Ocultable / Arriba) -->
-    <section id="seccion-registro" class="my-4 p-4 border rounded-3 bg-white shadow-sm d-none">
-      <header class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-        <h3 class="h4 fw-bold text-success m-0">Registro de Usuarios</h3>
-        <button id="btn-cerrar-registro" type="button" class="btn btn-sm btn-outline-secondary">✕ Cerrar</button>
-      </header>
-
-      <form id="form-registro" novalidate style="max-width: 650px;">
-        <div class="mb-3">
-          <label for="reg-rut" class="form-label fw-semibold">RUT / RUN (Sin puntos ni guion, ej: 19011022K)</label>
-          <input type="text" class="form-control" id="reg-rut" placeholder="19011022K" maxlength="9">
-          <div id="error-reg-rut" class="text-danger small mt-1"></div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="reg-nombre" class="form-label fw-semibold">Nombre</label>
-            <input type="text" class="form-control" id="reg-nombre" maxlength="50">
-            <div id="error-reg-nombre" class="text-danger small mt-1"></div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="reg-apellidos" class="form-label fw-semibold">Apellidos</label>
-            <input type="text" class="form-control" id="reg-apellidos" maxlength="100">
-            <div id="error-reg-apellidos" class="text-danger small mt-1"></div>
+          <div class="col-lg-6">
+            <figure class="m-0">
+              <img src="img/Nutricionistas.jpg" alt="Equipo de especialistas de NutriVida" class="img-fluid rounded-3 shadow-sm banner-equipo">
+            </figure>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="reg-correo" class="form-label fw-semibold">Correo Electrónico</label>
-            <input type="email" class="form-control" id="reg-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
-            <div id="error-reg-correo" class="text-danger small mt-1"></div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="reg-rol" class="form-label fw-semibold">Tipo de Usuario</label>
-            <select class="form-select" id="reg-rol">
-              <option value="">Selecciona un perfil...</option>
-              <option value="administrador">Administrador</option>
-              <option value="vendedor">Nutricionista / Vendedor</option>
-              <option value="cliente">Paciente / Cliente</option>
-            </select>
-            <div id="error-reg-rol" class="text-danger small mt-1"></div>
-          </div>
+        <div id="contenedor-nutricionistas" class="row row-cols-1 row-cols-md-2 g-4">
+          <!-- Renderizado dinámicamente desde el directorio del Excel -->
         </div>
+      </section>
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="reg-region" class="form-label fw-semibold">Región</label>
-            <select class="form-select" id="reg-region">
-              <option value="">Selecciona una región</option>
-              <option value="araucania">Región de La Araucanía</option>
-              <option value="metropolitana">Región Metropolitana</option>
-              <option value="biobio">Región del Biobío</option>
-            </select>
-            <div id="error-reg-region" class="text-danger small mt-1"></div>
-          </div>
+      <!-- SECCIÓN 5: PREGUNTAS FRECUENTES (Acordeón estilo RedSalud) -->
+      <section id="preguntas" class="my-5">
+        <header class="text-center mb-4">
+          <h2 class="h3 fw-bold text-success">Preguntas Frecuentes sobre tu Atención</h2>
+          <p class="text-muted">Resolvemos tus dudas antes de agendar tu consulta o examen nutricional.</p>
+        </header>
 
-          <div class="col-md-6 mb-3">
-            <label for="reg-comuna" class="form-label fw-semibold">Comuna</label>
-            <select class="form-select" id="reg-comuna" disabled>
-              <option value="">Primero selecciona una región</option>
-            </select>
-            <div id="error-reg-comuna" class="text-danger small mt-1"></div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="reg-direccion" class="form-label fw-semibold">Dirección</label>
-          <input type="text" class="form-control" id="reg-direccion" placeholder="Calle, número, depto" maxlength="300">
-          <div id="error-reg-direccion" class="text-danger small mt-1"></div>
-        </div>
-
-        <button type="submit" class="btn btn-success px-4">Registrar Usuario</button>
-      </form>
-    </section>
-
-    <!-- SECCIÓN 1: BIENVENIDA / HERO -->
-    <section id="inicio" class="hero-banner text-center text-white mb-4 shadow-sm">
-      <h2 id="mensaje-bienvenida" class="display-5 fw-bold mb-3">Asesoría Nutricional Personalizada</h2>
-      <p class="fs-5 mx-auto mb-4 hero-texto">
-        Planes nutricionales a tu medida: pérdida de peso, rendimiento deportivo y alimentación vegetariana/vegana.
-      </p>
-      <button id="boton-bienvenida" class="btn btn-success btn-lg px-5 shadow fw-bold">Conocer Especialistas</button>
-    </section>
-
-    <!-- SECCIÓN 2: CATÁLOGO DE SERVICIOS -->
-    <section id="servicios" class="my-5">
-      <header class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2 bg-transparent p-0">
-        <h3 class="fw-bold text-success m-0">Nuestros Servicios y Planes</h3>
-        <span class="badge bg-secondary">Precios en CLP</span>
-      </header>
-
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        
-        <!-- Tarjeta 1: Primera Consulta -->
-        <article class="col">
-          <div class="card h-100 shadow-sm border-0">
-            <header class="card-body pb-0 bg-transparent">
-              <span class="badge bg-primary mb-2">Consulta Presencial</span>
-              <h4 class="card-title fw-bold h5">Primera Consulta Nutricional</h4>
-              <p class="text-muted small">Código: CN001 | Duración: 50 min</p>
-            </header>
-            <div class="card-body pt-2">
-              <p class="card-text">Evaluación inicial completa con anamnesis, antropometría y diseño del primer plan alimenticio.</p>
-              <data class="h5 text-success fw-bold d-block" value="35000">$35.000</data>
-            </div>
-            <footer class="card-footer bg-white border-0 pt-0">
-              <button class="btn btn-outline-success w-100 boton-agregar" data-nombre="Primera Consulta Nutricional" data-precio="35000">
-                Añadir al Carrito
+        <div class="accordion shadow-sm rounded-3 overflow-hidden" id="acordeonFAQ">
+          <div class="accordion-item border-0 border-bottom">
+            <h3 class="accordion-header">
+              <button class="accordion-button fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                ¿Cómo debo prepararme para una Bioimpedanciometría (EV002) o Antropometría (EV001)?
               </button>
-            </footer>
-          </div>
-        </article>
-
-        <!-- Tarjeta 2: Plan Pérdida de Peso -->
-        <article class="col">
-          <div class="card h-100 shadow-sm border-0">
-            <header class="card-body pb-0 bg-transparent">
-              <span class="badge bg-warning text-dark mb-2">Plan Especializado</span>
-              <h4 class="card-title fw-bold h5">Plan Pérdida de Peso (1 mes)</h4>
-              <p class="text-muted small">Código: PL001 | Plan Completo</p>
-            </header>
-            <div class="card-body pt-2">
-              <p class="card-text">Incluye primera consulta, 1 control quincenal, plan alimenticio personalizado y seguimiento por WhatsApp.</p>
-              <data class="h5 text-success fw-bold d-block" value="65000">$65.000</data>
+            </h3>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#acordeonFAQ">
+              <div class="accordion-body text-muted">
+                Para obtener mediciones precisas de masa grasa y muscular, te recomendamos asistir con ayuno de 3 a 4 horas, no haber realizado ejercicio intenso 12 horas antes, evitar el consumo de cafeína o alcohol el día previo y asistir con ropa liviana.
+              </div>
             </div>
-            <footer class="card-footer bg-white border-0 pt-0">
-              <button class="btn btn-outline-success w-100 boton-agregar" data-nombre="Plan Pérdida de Peso (1 mes)" data-precio="65000">
-                Añadir al Carrito
-              </button>
-            </footer>
           </div>
-        </article>
 
-        <!-- Tarjeta 3: Teleconsulta -->
-        <article class="col">
-          <div class="card h-100 shadow-sm border-0">
-            <header class="card-body pb-0 bg-transparent">
-              <span class="badge bg-info text-dark mb-2">Online (Videollamada)</span>
-              <h4 class="card-title fw-bold h5">Teleconsulta Nutricional</h4>
-              <p class="text-muted small">Código: CN004 | Duración: 30 min</p>
-            </header>
-            <div class="card-body pt-2">
-              <p class="card-text">Consulta de seguimiento vía videollamada para pacientes fuera de Temuco o que requieren atención remota.</p>
-              <data class="h5 text-success fw-bold d-block" value="20000">$20.000</data>
+          <div class="accordion-item border-0 border-bottom">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                ¿Quiénes pueden agendar una Teleconsulta Nutricional (CN004)?
+              </button>
+            </h3>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#acordeonFAQ">
+              <div class="accordion-body text-muted">
+                Según nuestro protocolo clínico, la Teleconsulta vía videollamada ($20.000 CLP, 30 min) está orientada a controles de seguimiento y requiere contar con una consulta presencial previa o evaluación de exámenes recientes.
+              </div>
             </div>
-            <footer class="card-footer bg-white border-0 pt-0">
-              <button class="btn btn-outline-success w-100 boton-agregar" data-nombre="Teleconsulta Nutricional" data-precio="20000">
-                Añadir al Carrito
+          </div>
+
+          <div class="accordion-item border-0">
+            <h3 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                ¿Qué incluyen los Planes Especializados Mensuales y Trimestrales?
               </button>
-            </footer>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- SECCIÓN 3: NOSOTROS / EQUIPO PROFESIONAL -->
-    <section id="nosotros" class="my-5 p-4 bg-white rounded-3 shadow-sm">
-      <figure class="mb-4">
-        <img src="img/Nutricionistas.jpg" alt="Equipo de especialistas de NutriVida" class="img-fluid rounded-3 shadow-sm banner-equipo">
-      </figure>
-
-      <header class="border-bottom pb-2 mb-4">
-        <h3 class="fw-bold text-success m-0">Sobre NutriVida</h3>
-        <p class="text-muted m-0">Fundada en 2016 en Temuco, Región de La Araucanía. Atención personalizada y preventiva.</p>
-      </header>
-
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        
-        <!-- Profesional 1 -->
-        <article class="col">
-          <div class="p-3 border rounded-2 h-100 bg-light">
-            <h5 class="fw-bold text-success m-0">Nut. Carolina Fuentes M.</h5>
-            <span class="badge bg-secondary my-2">Código: NUT001</span>
-            <p class="mb-1"><strong>Especialidad:</strong> Obesidad y síndrome metabólico.</p>
-            <p class="small text-muted mb-0"><strong>Atención:</strong> Lunes, Miércoles y Viernes (09:00 – 17:00 hrs).</p>
-          </div>
-        </article>
-
-        <!-- Profesional 2 -->
-        <article class="col">
-          <div class="p-3 border rounded-2 h-100 bg-light">
-            <h5 class="fw-bold text-success m-0">Nut. Rodrigo Sepúlveda A.</h5>
-            <span class="badge bg-secondary my-2">Código: NUT002</span>
-            <p class="mb-1"><strong>Especialidad:</strong> Nutrición deportiva y rendimiento.</p>
-            <p class="small text-muted mb-0"><strong>Atención:</strong> Martes, Jueves y Sábado (09:00 – 14:00 hrs).</p>
-          </div>
-        </article>
-
-        <!-- Profesional 3 -->
-        <article class="col">
-          <div class="p-3 border rounded-2 h-100 bg-light">
-            <h5 class="fw-bold text-success m-0">Nut. Daniela Morales C.</h5>
-            <span class="badge bg-secondary my-2">Código: NUT003</span>
-            <p class="mb-1"><strong>Especialidad:</strong> Alimentación vegetariana, vegana y trastornos alimentarios.</p>
-            <p class="small text-muted mb-0"><strong>Atención:</strong> Lunes a Viernes (08:00 – 13:00 hrs).</p>
-          </div>
-        </article>
-
-        <!-- Profesional 4 -->
-        <article class="col">
-          <div class="p-3 border rounded-2 h-100 bg-light">
-            <h5 class="fw-bold text-success m-0">Nut. Felipe Araya R.</h5>
-            <span class="badge bg-secondary my-2">Código: NUT004</span>
-            <p class="mb-1"><strong>Especialidad:</strong> Nutrición pediátrica y familiar.</p>
-            <p class="small text-muted mb-0"><strong>Atención:</strong> Martes a Viernes (14:00 – 19:00 hrs).</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- SECCIÓN 4: FORMULARIO DE CONTACTO -->
-    <section id="contacto" class="my-5 p-4 bg-white rounded-3 shadow-sm">
-      <header class="border-bottom pb-2 mb-4">
-        <h3 class="fw-bold text-success m-0">Contáctanos</h3>
-        <p class="text-muted m-0">Envía tus consultas al equipo de NutriVida.</p>
-      </header>
-
-      <form id="form-contacto" novalidate style="max-width: 600px;">
-        <div class="mb-3">
-          <label for="contacto-nombre" class="form-label fw-semibold">Nombre Completo</label>
-          <input type="text" class="form-control" id="contacto-nombre" placeholder="Ej: Juan Pérez" maxlength="100">
-          <div id="error-contacto-nombre" class="text-danger small mt-1"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="contacto-correo" class="form-label fw-semibold">Correo Electrónico</label>
-          <input type="email" class="form-control" id="contacto-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
-          <div id="error-contacto-correo" class="text-danger small mt-1"></div>
-        </div>
-
-        <div class="mb-3">
-          <label for="contacto-mensaje" class="form-label fw-semibold">Mensaje o Consulta</label>
-          <textarea class="form-control" id="contacto-mensaje" rows="4" maxlength="500" placeholder="Escribe tu consulta aquí..."></textarea>
-          <div class="d-flex justify-content-between">
-            <div id="error-contacto-mensaje" class="text-danger small mt-1"></div>
-            <small id="contador-caracteres" class="text-muted mt-1">0 / 500</small>
+            </h3>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#acordeonFAQ">
+              <div class="accordion-body text-muted">
+                Nuestros planes (Pérdida de peso, Deportiva, Diabetes/Hipertensión, Vegetariano e Infantil) incluyen la primera evaluación, controles periódicos, pautas digitales personalizadas que no se pierden como el papel y seguimiento directo por WhatsApp.
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <button type="submit" class="btn btn-success px-4">Enviar Mensaje</button>
-        <div id="mensaje-exito-contacto" class="alert alert-success mt-3 d-none">
-          ¡Mensaje enviado correctamente! Nos pondremos en contacto a la brevedad.
+      <!-- SECCIÓN 6: CONTACTO Y CANALES DE ATENCIÓN (Sin mapa) -->
+      <section id="contacto" class="my-5 p-4 bg-white rounded-4 shadow-sm">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-7">
+            <header class="border-bottom pb-2 mb-3">
+              <h2 class="h4 fw-bold text-success m-0">Contáctanos y Solicita Orientación</h2>
+              <p class="text-muted small m-0">Escríbenos tus consultas o requerimientos especiales (validación en vivo activa).</p>
+            </header>
+
+            <form id="form-contacto" novalidate>
+              <div class="mb-3">
+                <label for="contacto-nombre" class="form-label fw-semibold small">Nombre Completo *</label>
+                <input type="text" class="form-control" id="contacto-nombre" placeholder="Ej: Martín Bozzo" maxlength="100">
+                <div id="error-contacto-nombre" class="text-danger small mt-1"></div>
+              </div>
+
+              <div class="mb-3">
+                <label for="contacto-correo" class="form-label fw-semibold small">Correo Electrónico *</label>
+                <input type="email" class="form-control" id="contacto-correo" placeholder="ejemplo@duoc.cl" maxlength="100">
+                <div id="error-contacto-correo" class="text-danger small mt-1"></div>
+              </div>
+
+              <div class="mb-3">
+                <label for="contacto-mensaje" class="form-label fw-semibold small">Mensaje o Consulta *</label>
+                <textarea class="form-control" id="contacto-mensaje" rows="3" maxlength="500" placeholder="Indica tu motivo de consulta o nutricionista de preferencia..."></textarea>
+                <div class="d-flex justify-content-between">
+                  <div id="error-contacto-mensaje" class="text-danger small mt-1"></div>
+                  <small id="contador-caracteres" class="text-muted mt-1">0 / 500</small>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-success px-4 fw-bold">
+                <i class="bi bi-send me-1"></i>Enviar Mensaje
+              </button>
+              <div id="mensaje-exito-contacto" class="alert alert-success mt-3 d-none small">
+                ¡Mensaje enviado correctamente! La secretaría de NutriVida te contactará a la brevedad.
+              </div>
+            </form>
+          </div>
+
+          <div class="col-lg-5">
+            <aside class="p-4 rounded-4 bg-light border h-100">
+              <h3 class="h5 fw-bold text-success mb-3"><i class="bi bi-building-check me-2"></i>Información de Sucursal</h3>
+              <p class="small text-muted mb-3">
+                Atendemos de manera presencial en nuestra clínica en Temuco y vía remota por videollamada para pacientes de todo Chile.
+              </p>
+              <ul class="list-unstyled small mb-0 d-grid gap-3">
+                <li class="d-flex align-items-start">
+                  <i class="bi bi-geo-alt-fill text-success fs-5 me-2"></i>
+                  <div>
+                    <strong>Dirección Clínica:</strong><br>
+                    Av. Alemania 0850, Temuco, Región de La Araucanía.
+                  </div>
+                </li>
+                <li class="d-flex align-items-start">
+                  <i class="bi bi-clock-fill text-success fs-5 me-2"></i>
+                  <div>
+                    <strong>Horario de Atención:</strong><br>
+                    Lunes a Viernes: 08:00 – 19:00 hrs.<br>
+                    Sábados: 09:00 – 14:00 hrs.
+                  </div>
+                </li>
+                <li class="d-flex align-items-start">
+                  <i class="bi bi-envelope-at-fill text-success fs-5 me-2"></i>
+                  <div>
+                    <strong>Contacto Directo:</strong><br>
+                    contacto@nutrivida.cl | +56 45 234 5678
+                  </div>
+                </li>
+              </ul>
+            </aside>
+          </div>
         </div>
-      </form>
-    </section>
+      </section>
 
+    </div>
   </main>
 
-  <!-- FOOTER INFORMATIVO -->
-  <footer class="bg-dark text-white text-center py-4 mt-5">
+  <!-- OFFCANVAS LATERAL: CARRITO DE SERVICIOS -->
+  <aside class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito" aria-labelledby="offcanvasCarritoLabel">
+    <header class="offcanvas-header text-white" style="background-color: #1e5631;">
+      <h2 class="h5 offcanvas-title fw-bold m-0" id="offcanvasCarritoLabel">
+        <i class="bi bi-cart-check me-2"></i>Tu Reserva de Servicios
+      </h2>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </header>
+    <div class="offcanvas-body d-flex flex-column">
+      <p class="text-muted small mb-3">
+        Selecciona tus consultas, planes o exámenes. Los datos se guardan automáticamente en tu navegador (<code>localStorage</code>).
+      </p>
+
+      <ul id="lista-carrito" class="list-group list-group-flush flex-grow-1 overflow-auto mb-3 border rounded-3">
+        <!-- Renderizado por JS -->
+      </ul>
+
+      <footer class="border-top pt-3 mt-auto">
+        <div class="mb-3">
+          <label for="select-nutricionista-reserva" class="form-label small fw-semibold">Nutricionista preferido para tu orden:</label>
+          <select id="select-nutricionista-reserva" class="form-select form-select-sm">
+            <option value="Cualquier especialista disponible">Cualquier especialista disponible</option>
+            <option value="Nut. Carolina Fuentes M. (NUT001)">Nut. Carolina Fuentes M. (Obesidad/Metabólico)</option>
+            <option value="Nut. Rodrigo Sepúlveda A. (NUT002)">Nut. Rodrigo Sepúlveda A. (Deportiva)</option>
+            <option value="Nut. Daniela Morales C. (NUT003)">Nut. Daniela Morales C. (Vegetariana/Vegana)</option>
+            <option value="Nut. Felipe Araya R. (NUT004)">Nut. Felipe Araya R. (Pediátrica/Familiar)</option>
+          </select>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="fs-5 fw-bold">Total Estimado:</span>
+          <data id="total-carrito" class="fs-4 fw-bold text-success" value="0">$0 CLP</data>
+        </div>
+
+        <div class="d-grid gap-2">
+          <button id="btn-confirmar-reserva" type="button" class="btn btn-success fw-bold">
+            <i class="bi bi-check2-circle me-1"></i>Confirmar Solicitud de Hora
+          </button>
+          <button id="btn-vaciar-carrito" type="button" class="btn btn-outline-danger btn-sm">
+            Vaciar Selección
+          </button>
+        </div>
+      </footer>
+    </div>
+  </aside>
+
+  <!-- MODAL: INICIO DE SESIÓN (Con validación en vivo y RBAC) -->
+  <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <header class="modal-header text-white" style="background-color: #1e5631;">
+          <h2 class="h5 modal-title fw-bold" id="modalLoginLabel">Acceso Portal NutriVida</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </header>
+        <div class="modal-body p-4">
+          <form id="form-login" novalidate>
+            <div class="mb-3">
+              <label for="login-correo" class="form-label fw-semibold small">Correo Electrónico *</label>
+              <input type="email" class="form-control" id="login-correo" placeholder="usuario@duoc.cl" maxlength="100">
+              <div id="error-login-correo" class="text-danger small mt-1"></div>
+            </div>
+            <div class="mb-3">
+              <label for="login-clave" class="form-label fw-semibold small">Contraseña *</label>
+              <input type="password" class="form-control" id="login-clave" placeholder="4 a 10 caracteres">
+              <div id="error-login-clave" class="text-danger small mt-1"></div>
+            </div>
+            <div class="mb-3">
+              <label for="login-rol" class="form-label fw-semibold small">Perfil de Acceso (Simulación RBAC ERS) *</label>
+              <select id="login-rol" class="form-select">
+                <option value="Paciente">Paciente / Cliente (Catálogo y Reservas)</option>
+                <option value="Nutricionista">Nutricionista (Visualización Clínica)</option>
+                <option value="Administrador">Administrador (Acceso Total y Mantenedor)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100 fw-bold">Ingresar al Portal</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTRO DE PACIENTES (Con validación en vivo) -->
+  <div class="modal fade" id="modalRegistro" tabindex="-1" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <header class="modal-header text-white" style="background-color: #1e5631;">
+          <h2 class="h5 modal-title fw-bold" id="modalRegistroLabel">Registro de Nuevo Usuario</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </header>
+        <div class="modal-body p-4">
+          <form id="form-registro" novalidate>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="reg-rut" class="form-label fw-semibold small">RUT / RUN (Sin puntos ni guion) *</label>
+                <input type="text" class="form-control" id="reg-rut" placeholder="Ej: 19011022K" maxlength="9">
+                <div id="error-reg-rut" class="text-danger small mt-1"></div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="reg-rol" class="form-label fw-semibold small">Tipo de Usuario *</label>
+                <select class="form-select" id="reg-rol">
+                  <option value="">Selecciona un perfil...</option>
+                  <option value="cliente">Paciente / Cliente</option>
+                  <option value="vendedor">Nutricionista</option>
+                  <option value="administrador">Administrador</option>
+                </select>
+                <div id="error-reg-rol" class="text-danger small mt-1"></div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="reg-nombre" class="form-label fw-semibold small">Nombres *</label>
+                <input type="text" class="form-control" id="reg-nombre" maxlength="50">
+                <div id="error-reg-nombre" class="text-danger small mt-1"></div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="reg-apellidos" class="form-label fw-semibold small">Apellidos *</label>
+                <input type="text" class="form-control" id="reg-apellidos" maxlength="100">
+                <div id="error-reg-apellidos" class="text-danger small mt-1"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="reg-correo" class="form-label fw-semibold small">Correo Electrónico Autorizado *</label>
+              <input type="email" class="form-control" id="reg-correo" placeholder="ejemplo@duoc.cl, @duocuc.cl o @gmail.com" maxlength="100">
+              <div id="error-reg-correo" class="text-danger small mt-1"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="reg-region" class="form-label fw-semibold small">Región *</label>
+                <select class="form-select" id="reg-region">
+                  <option value="">Selecciona una región</option>
+                  <option value="araucania">Región de La Araucanía</option>
+                  <option value="metropolitana">Región Metropolitana</option>
+                  <option value="biobio">Región del Biobío</option>
+                  <option value="valparaiso">Región de Valparaíso</option>
+                </select>
+                <div id="error-reg-region" class="text-danger small mt-1"></div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="reg-comuna" class="form-label fw-semibold small">Comuna *</label>
+                <select class="form-select" id="reg-comuna" disabled>
+                  <option value="">Primero selecciona una región</option>
+                </select>
+                <div id="error-reg-comuna" class="text-danger small mt-1"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="reg-direccion" class="form-label fw-semibold small">Dirección Particular *</label>
+              <input type="text" class="form-control" id="reg-direccion" placeholder="Calle, número, departamento" maxlength="300">
+              <div id="error-reg-direccion" class="text-danger small mt-1"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 fw-bold">Completar Registro</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER INSTITUCIONAL -->
+  <footer class="bg-dark text-white pt-5 pb-4 mt-5">
     <div class="container">
-      <p class="mb-1">&copy; 2026 Clínica Nutricional NutriVida - Todos los derechos reservados.</p>
-      <p class="small text-white-50 mb-0">Temuco, Región de La Araucanía | Proyecto DSY1104 Duoc UC</p>
+      <div class="row g-4 pb-4 border-bottom border-secondary">
+        <div class="col-md-4">
+          <h3 class="h5 fw-bold text-warning">Clínica Nutricional NutriVida</h3>
+          <p class="small text-white-50">
+            Atención nutricional personalizada y preventiva desde 2016. Comprometidos con tu bienestar físico, metabólico y deportivo.
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h6 fw-bold text-white">Áreas Clínicas</h3>
+          <ul class="list-unstyled small text-white-50">
+            <li>• Obesidad y Síndrome Metabólico</li>
+            <li>• Nutrición Deportiva y Rendimiento</li>
+            <li>• Alimentación Vegetariana y Vegana</li>
+            <li>• Nutrición Pediátrica y Talleres</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h3 class="h6 fw-bold text-white">Contacto e Información</h3>
+          <p class="small text-white-50 mb-1"><i class="bi bi-geo-alt me-1"></i> Temuco, Región de La Araucanía</p>
+          <p class="small text-white-50 mb-1"><i class="bi bi-envelope me-1"></i> contacto@nutrivida.cl</p>
+          <p class="small text-white-50 mb-0"><i class="bi bi-shield-check me-1"></i> Proyecto Académico DSY1104 Duoc UC</p>
+        </div>
+      </div>
+      <div class="text-center pt-3 small text-white-50">
+        &copy; 2026 Clínica Nutricional NutriVida - Desarrollado por Martín Bozzo y Elías Terán.
+      </div>
     </div>
   </footer>
 

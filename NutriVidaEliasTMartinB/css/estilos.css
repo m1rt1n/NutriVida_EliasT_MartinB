@@ -1,74 +1,135 @@
 html {
   scroll-behavior: smooth;
-}
-
-.logo-navbar {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-}
-
-.hero-banner {
-  /* El linear-gradient es el filtro negro al 60% de opacidad (0.6) */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/pexels-yaroslav-shuraev-8845419.jpg');
-  background-size: cover;
-  background-position: center;
-  border-radius: 0.5rem;
-  padding: 6rem 2rem; /* Espaciado interno para dar altura */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-texto {
-  max-width: 700px;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.8); /* Sombra para que el texto resalte más */
-}
-
-.banner-equipo {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-  object-position: center 20%; /* Enfoca la imagen un poco más arriba del centro */
-}
-
-* {
   box-sizing: border-box;
-}
-
-/* Efecto hover suave para los botones principales */
-.btn-success:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease-in-out;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   color: #2b2b2b;
-  background-color: #f8f9fa;
+  background-color: #f4f7f5;
 }
 
-/* Solo afecta a la barra superior principal */
-body > header {
-  background-color: #1e5631;
+/* Barra superior e institucional */
+.top-bar {
+  background-color: #12351e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Estilo para los enlaces del menú al pasar el mouse */
-nav a:hover {
-  text-decoration: underline !important;
-  opacity: 0.9;
+.header-nutrivida {
+  background: linear-gradient(90deg, #184728 0%, #1e5631 50%, #184728 100%);
+  border-bottom: 2px solid rgba(255, 193, 7, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* Efecto hover suave para las tarjetas de servicios */
-.card {
-  border-radius: 8px;
+/* Contenedor más grande que encuadra exactamente el ícono sin las letras de abajo */
+.logo-wrapper {
+  width: 54px;
+  height: 53px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+}
+
+/* Coordenadas exactas para mostrar solo el símbolo de la hoja/manzana al 100% */
+.logo-navbar {
+  width: 220px;
+  height: 120px;
+  max-width: none;
+  position: absolute;
+  left: -80px;
+  top: -17px;
+}
+
+header .link-menu {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.92rem;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0.4rem 0.75rem !important;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+header .link-menu:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.12);
+  text-decoration: none !important;
+}
+
+.btn-acceso {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-acceso:hover {
+  background-color: #ffffff;
+  color: #1e5631;
+}
+
+/* Hero Banner estilo portal clínico */
+.hero-banner {
+  background-image: linear-gradient(90deg, rgba(20, 61, 34, 0.90) 0%, rgba(30, 86, 49, 0.72) 60%, rgba(0, 0, 0, 0.55) 100%), url('../img/pexels-yaroslav-shuraev-8845419.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 4.5rem 0 6.5rem 0;
+}
+
+.hero-texto {
+  max-width: 680px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Tarjetas superpuestas de acceso rápido */
+.tarjetas-acceso-rapido {
+  margin-top: -3.2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.tarjeta-atajo {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-bottom: 3px solid #1e5631 !important;
 }
 
-.card:hover {
+.tarjeta-atajo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Pestañas del catálogo */
+.nav-pills .nav-link {
+  color: #1e5631;
+  background-color: #e9f0eb;
+  border-radius: 50rem;
+  padding: 0.5rem 1.2rem;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #1e5631;
+  color: #ffffff;
+}
+
+/* Tarjetas del catálogo y especialistas */
+.card-servicio {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e2e8e4;
+}
+
+.card-servicio:hover {
   transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(30, 86, 49, 0.12) !important;
+}
+
+.banner-equipo {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center 20%;
 }
